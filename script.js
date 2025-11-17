@@ -22,4 +22,17 @@
       target.scrollIntoView({behavior:'smooth'});
     }
   });
+
+  document.addEventListener("DOMContentLoaded", () => {
+  const mobileBtn = document.querySelector(".mobile-menu-btn");
+  const nav = document.querySelector(".nav");
+
+  if (mobileBtn && nav) {
+    mobileBtn.addEventListener("click", () => {
+      nav.classList.toggle("mobile-open"); // hiện menu
+      mobileBtn.classList.toggle("active"); // hiệu ứng hamburger
+    });
+  }
+});
+
 })();
