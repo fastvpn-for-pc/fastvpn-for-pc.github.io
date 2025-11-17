@@ -336,3 +336,39 @@ body {
     border-radius: 5px;
   }
 }
+@media (max-width: 768px) {
+  .nav {
+    display: none; /* ẩn mặc định */
+    flex-direction: column;
+    gap: 16px;
+    align-items: center; /* căn giữa menu */
+    background: rgba(0,0,0,0.95);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+    z-index: 998;
+  }
+
+  .nav.mobile-open {
+    display: flex; /* hiện khi toggle */
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .mobile-menu-btn span {
+    width: 30px;
+    height: 3px;
+    background: #fff;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+}
