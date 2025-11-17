@@ -1,5 +1,5 @@
 /* =======================
-   RESET & GLOBAL
+   RESET
 ======================= */
 * {
   margin: 0;
@@ -44,12 +44,12 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Header inner: logo left, nav center */
+/* Header inner grid: logo | nav | toggle */
 .header-inner {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr auto; /* logo | nav | toggle */
   align-items: center;
-  gap: 24px;
+  gap: 20px;
 }
 
 /* Logo */
@@ -78,11 +78,9 @@ body {
   transform: scale(1.06);
 }
 
-/* =======================
-   NAVIGATION
-======================= */
+/* Navigation desktop - căn giữa */
 .nav {
-  display: flex; /* Desktop menu always visible */
+  display: flex;
   justify-content: center;
   gap: 22px;
 }
@@ -113,6 +111,7 @@ body {
   width: 100%;
 }
 
+/* Highlight button in nav */
 .btn-highlight {
   background: linear-gradient(135deg, #f97316, #fb923c);
   padding: 10px 18px;
@@ -127,14 +126,13 @@ body {
   box-shadow: 0 6px 18px rgba(249,115,22,0.4);
 }
 
-/* =======================
-   MOBILE MENU
-======================= */
+/* Hamburger toggle - căn phải */
 .mobile-menu-btn {
-  display: none;
+  display: none; /* chỉ hiện trên mobile */
   flex-direction: column;
   gap: 5px;
   cursor: pointer;
+  z-index: 1000;
 }
 
 .mobile-menu-btn span {
@@ -145,30 +143,17 @@ body {
   transition: all 0.3s ease;
 }
 
-@media (max-width: 768px) {
-  .nav {
-    display: none; /* hide default desktop nav on mobile */
-    flex-direction: column;
-    gap: 16px;
-    align-items: center;
-    background: rgba(0,0,0,0.95);
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    padding: 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    transition: all 0.3s ease;
-    z-index: 998;
-  }
+/* Hamburger animation khi active */
+.mobile-menu-btn.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
 
-  .nav.mobile-open {
-    display: flex; /* show menu on toggle */
-  }
+.mobile-menu-btn.active span:nth-child(2) {
+  opacity: 0;
+}
 
-  .mobile-menu-btn {
-    display: flex; /* show hamburger */
-  }
+.mobile-menu-btn.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
 }
 
 /* =======================
@@ -278,13 +263,35 @@ body {
   margin-bottom: 20px;
 }
 
-/* =======================
-   GUIDE LIST
-======================= */
+/* FOOTER */
+.footer {
+  padding: 40px 0 20px;
+  background: #0b1220;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.footer-nav {
+  margin-top: 12px;
+}
+
+.footer-nav a {
+  color: #94a3b8;
+  margin: 0 10px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-nav a:hover {
+  color: #f97316;
+}
+
+/* GUIDE LIST INDENTATION */
 #guide ol {
   counter-reset: step-counter;
   list-style: none;
   padding-left: 2.2rem;
+  margin-left: 0;
 }
 
 #guide ol li {
@@ -311,26 +318,46 @@ body {
 }
 
 /* =======================
-   FOOTER
+   MOBILE
 ======================= */
-.footer {
-  padding: 40px 0 20px;
-  background: #0b1220;
-  text-align: center;
-  border-top: 1px solid rgba(255,255,255,0.05);
-}
+@media (max-width: 768px) {
+  /* Hamburger visible */
+  .mobile-menu-btn {
+    display: flex;
+  }
 
-.footer-nav {
-  margin-top: 12px;
-}
+  /* Mobile nav */
+  .nav {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 20px;
+    background: rgba(0,0,0,0.95);
+    position: fixed;
+    top: 0;
+    right: -260px; /* ẩn ngoài màn hình */
+    height: 100vh;
+    width: 260px;
+    transition: right 0.3s ease;
+    z-index: 998;
+  }
 
-.footer-nav a {
-  color: #94a3b8;
-  margin: 0 10px;
-  text-decoration: none;
-  transition: 0.3s;
-}
+  .nav.mobile-open {
+    right: 0;
+    display: flex;
+  }
 
-.footer-nav a:hover {
-  color: #f97316;
+  /* Reduce guide list spacing on mobile */
+  #guide ol {
+    padding-left: 1.6rem;
+  }
+
+  #guide ol li::before {
+    width: 1.3rem;
+    height: 1.3rem;
+    line-height: 1.3rem;
+    font-size: 0.9rem;
+    border-radius: 5px;
+  }
 }
